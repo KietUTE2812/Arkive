@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  # 1. Backend Spring Boot (Chạy ẩn)
+  backend:
+    build: ./ArkiveBackEnd
+    container_name: arkive_backend
+    restart: always
+    env_file:
+      - ./ArkiveBackEnd/.env
+    expose:
+      - "8080" # Chỉ mở cổng nội bộ trong mạng Docker để giao tiếp với frontend
+    # KHÔNG expose port ra máy host, để bảo mật
+    networks:
+      - arkive_network
+
+  # 2. Frontend Next.js
+  frontend:
+    build: ./ArkiveFrontEnd
+    container_name: arkive_frontend
+    restart: always
+    ports:
+      - "3000:3000" # Map cổng 3000 máy chủ -> cổng 3000 container
+    env_file:
+      - ./ArkiveFrontEnd/.env
+    depends_on: # Đảm bảo backend chạy trước frontend
+      - backend
+    networks:
+      - arkive_network
+
+networks:
+  arkive_network:
+    driver: bridge
