@@ -6,7 +6,7 @@ WORKDIR /app
 COPY package*.json ./
 COPY yarn.lock ./
 
-RUN npm ci && npm install sharp
+RUN npm ci --legacy-peer-deps && npm install sharp --legacy-peer-deps
 
 # Install build tools (some deps may need them) and install deps (pnpm nếu có, ngược lại npm)
 RUN apk add --no-cache bash python3 make g++ || true
