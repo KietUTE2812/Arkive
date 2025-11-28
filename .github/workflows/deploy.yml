@@ -13,7 +13,11 @@ jobs:
       # 1. Check out code mới nhất từ GitHub về thư mục làm việc của Runner
       - name: Checkout Code
         uses: actions/checkout@v4
-        
+
+      # 2. Di chuyển vào thư mục chứa docker-compose.yml
+      - name: Change Directory
+        run: cd ~/Arkive
+
       # 2. Build và Chạy Docker Compose
       - name: Build and Deploy
         run: |
