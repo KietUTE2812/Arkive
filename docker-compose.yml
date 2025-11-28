@@ -8,9 +8,8 @@ services:
     restart: always
     env_file:
       - ./ArkiveBackEnd/.env
-    expose:
-      - "8080" # Chỉ mở cổng nội bộ trong mạng Docker để giao tiếp với frontend
-    # KHÔNG expose port ra máy host, để bảo mật
+    ports:
+      - "127.0.0.1:8080:8080" # Chỉ map cổng 8080 trên localhost của máy chủ
     networks:
       - arkive_network
 
