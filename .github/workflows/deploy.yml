@@ -1,0 +1,27 @@
+name: CI/CD on Self-Hosted Runner
+
+on:
+  push:
+    branches: [ "main" ] # Chạy khi push code vào main
+
+jobs:
+  deploy:
+    # QUAN TRỌNG: Dùng runner của chính bạn thay vì ubuntu-latest
+    runs-on: ["self-hosted", "server-runner-arkive"]
+
+    steps:
+      # 1. Check out code mới nhất từ GitHub về thư mục làm việc của Runner
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      # 2. Build và Chạy Docker Compose
+      - name: Build and Deploy
+        run: |
+          echo "Building and Starting Containers..."
+          # Dùng 'docker compose' (bản mới) thay vì 'docker-compose' (bản cũ)
+          docker compose down
+          docker compose up -d --build
+
+      # 3. Dọn dẹp image cũ cho đỡ tốn ổ cứng
+      - name: Cleanup
+        run: docker system prune -f

@@ -31,17 +31,7 @@ const nextConfig: NextConfig = {
         pathname: '/**', // Allows all paths from this host
       },
     ],
-  },
-  async rewrites() {
-    return [
-      {
-        // Khi Browser gọi: /arkive/api/v1/users
-        source: '/arkive/api/:path*',
-        // Next.js sẽ gọi ngầm sang: http://backend:8080/api/v1/users
-        destination: `${process.env.INTERNAL_API_URL}/arkive/api/:path*`, 
-      },
-    ];
-  },
+  }
 };
 
 export default nextConfig;

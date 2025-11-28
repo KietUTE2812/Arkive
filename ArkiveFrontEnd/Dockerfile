@@ -18,14 +18,7 @@ RUN npm run build
 FROM node:20-alpine AS runner
 WORKDIR /app
 
-ARG NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
-
-ARG NEXT_PUBLIC_GOOGLE_CLIENT_ID
-ENV NEXT_PUBLIC_GOOGLE_CLIENT_ID=$NEXT_PUBLIC_GOOGLE_CLIENT_ID
-
-ARG NEXT_PUBLIC_R2_PUBLIC_URL
-ENV NEXT_PUBLIC_R2_PUBLIC_URL=$NEXT_PUBLIC_R2_PUBLIC_URL
+ENV NODE_ENV=production
 
 # Copy standalone server and static assets produced by Next.js build
 COPY --from=builder /app/.next/standalone/ ./
