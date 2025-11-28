@@ -14,9 +14,18 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # 2. Di chuyển vào thư mục chứa docker-compose.yml
-      - name: Change Directory
-        run: cd ~/Arkive
+      # --- BƯỚC QUAN TRỌNG: COPY FILE CÓ SẴN VÀO WORKSPACE ---
+      - name: Copy existing .env from Server
+        run: |
+          
+          echo "Đang copy file cấu hình..."
+          cp ~/Arkive/ArkiveBackEnd/.env ./ArkiveBackEnd/.env
+          
+          # Kiểm tra xem file đã đến nơi chưa
+          ls -la ./ArkiveBackEnd/
+
+          cp ~/Arkive/ArkiveFrontEnd/.env ./ArkiveFrontEnd/.env
+          ls -la ./ArkiveFrontEnd/
 
       # 2. Build và Chạy Docker Compose
       - name: Build and Deploy
